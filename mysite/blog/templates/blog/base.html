@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Base</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Medium Style Editor -->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <!-- FontAwesome for icons-->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <script src="https://kit.fontawesome.com/3db6fdc3ea.js"></script>
+
+
+
+    <!-- Custom CSS: Custom calls must go after the calls above -->
+    <link rel="stylesheet" href="{% static 'CSS/blog.css' %}">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Barlow|Fascinate&display=swap" rel="stylesheet">
+
+
+  </head>
+  <body>
+<!-- techfont allows us to change the Navbar font from our CSS -->
+<!-- custom-navbar is an empty class that we may want to use in the future -->
+<!-- Other classes also have some empty classes  -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end techfont custom-navbar">
+
+        <a class="navbar-brand" href="{% url 'post_list' %}">My Blog</a>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+          <li class="nav-item active"><a class="nav-link" href="https://www.github.com">Github</a></li>
+          <li class="nav-item active"><a class="nav-link" href="https://www.linkedin.com">LinkedIn</a></li>
+        </ul>
+
+        <ul class="navbar-nav mr-auto navbar-right">
+          {% if user.is_authenticated %}
+          <li>
+            <a class="nav-link" href="{% url 'post_new' %}">New Post</a>
+          </li>
+
+          <li>
+            <a class="nav-link" href="{% url 'post_draft_list' %}">Drafts</a>
+          </li>
+
+          <li>
+            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+          </li>
+
+          <li>
+            <a>Welcome: {{user.username}}</a>
+          </li>
+
+          {% else %}
+
+
+          <li class = 'ml-auto'>
+            <a class="nav-link fas fa-user" href="{% url 'login' %}"></a>
+          </li>
+          {% endif %}
+
+        </ul>
+
+    </nav>
+
+    <!-- Content -->
+
+    <div class="content container">
+
+
+          <div class="blog-posts">
+            {% block content %}
+
+            {% endblock %}
+          </div>
+
+
+    </div>
+  </body>
+</html>
